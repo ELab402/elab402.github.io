@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic Electronics Lab</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        :root {
+            --primary-bg: #0d1117;
+            --secondary-bg: #161b22;
+            --border-color: #30363d;
+            --text-primary: #c9d1d9;
+            --text-secondary: #8b949e;
+            --accent-glow: #238636;
+            --accent-glow-light: rgba(35, 134, 54, 0.5);
+            --font-primary: 'Poppins', sans-serif;
+            --font-display: 'Orbitron', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0);
+            background-size: 20px 20px;
+        }
+
+        /* --- Sidebar Navigation --- */
+        .sidebar {
+            width: 260px;
+            background-color: rgba(13, 17, 23, 0.8);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid var(--border-color);
+            padding: 2rem 0;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            padding: 0 1.5rem 2rem 1.5rem;
+            text-align: center;
+        }
+
+        .logo-text {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: white;
+            text-shadow: 0 0 10px var(--accent-glow-light);
+        }
+
+        .logo-accent {
+            color: var(--accent-glow);
+        }
+
+        .nav-links {
+            list-style: none;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .nav-links li a {
+            cursor: pointer;
+            display: block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            margin: 0.2rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-links li a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .nav-links li a:hover {
+            background-color: var(--secondary-bg);
+            color: white;
+            border-left: 3px solid var(--accent-glow);
+        }
+
+        .nav-links li a.active {
+            background-color: var(--accent-glow);
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 0 15px var(--accent-glow-light);
+            border-left: 3px solid var(--accent-glow);
+        }
+
+        /* --- Main Content --- */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem 3rem;
+        }
+        
+        /* Page container logic */
+        .page {
+            display: none; /* Hide all pages by default */
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .page.active {
+            display: block; /* Show only the active page */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        .main-header h1 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: 0 0 5px #fff, 0 0 15px var(--accent-glow);
+        }
+
+        .visitor-counter {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+        }
+
+        .visitor-counter span {
+            background-color: #000;
+            color: var(--accent-glow);
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-left: 10px;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            border: 1px solid var(--border-color);
+            box-shadow: inset 0 0 5px var(--accent-glow-light);
+        }
+        
+        /* --- Homepage Cards --- */
+        .lab-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background-color: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 30px var(--accent-glow-light);
+            border-color: var(--accent-glow);
+        }
+        .card img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            opacity: 0.7;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .card:hover img { opacity: 1; transform: scale(1.05); }
+        .card-content {
+            padding: 1.5rem;
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            background: linear-gradient(to top, rgba(13, 17, 23, 1) 40%, rgba(13, 17, 23, 0));
+        }
+        .card-content h2 { font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 0.5rem; color: #fff; }
+        .card-content p { color: var(--text-secondary); margin-bottom: 1rem; }
+        .btn { display: inline-block; background-color: transparent; border: 2px solid var(--accent-glow); color: var(--accent-glow); padding: 0.5rem 1rem; text-decoration: none; border-radius: 5px; font-weight: bold; transition: all 0.3s ease; }
+        .btn:hover { background-color: var(--accent-glow); color: white; box-shadow: 0 0 15px var(--accent-glow-light); }
+        
+        /* --- Content page styles --- */
+        .content-section {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+        .content-section h3 {
+            font-family: var(--font-display);
+            color: var(--accent-glow);
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+        .content-section p, .content-section li {
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+        .content-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .content-section ul li {
+            margin-bottom: 0.7rem;
+        }
+        .content-section ul li a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s ease, padding-left 0.3s ease;
+        }
+        .content-section ul li a:hover {
+            color: var(--accent-glow);
+            padding-left: 10px;
+        }
+        .content-section ul li a::before {
+            content: '»';
+            margin-right: 10px;
+            color: var(--accent-glow);
+            opacity: 0.5;
+        }
+
+        /* Specific styles for Links page */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        /* Specific styles for Digital Lab page */
+        .digital-lab-layout {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+        .digital-lab-layout .content-section {
+            flex: 1;
+        }
+        .digital-lab-media {
+            flex-basis: 300px;
+        }
+        .digital-lab-media img {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h2 class="logo-text">E-LAB <span class="logo-accent">@402</span></h2>
+        </div>
+        <ul class="nav-links">
+            <li><a data-page="home" class="nav-link active"><i class="fas fa-home"></i> Home</a></li>
+            <li><a data-page="analog-lab" class="nav-link"><i class="fas fa-wave-square"></i> Analog LAB</a></li>
+            <li><a data-page="digital-lab" class="nav-link"><i class="fas fa-border-all"></i> Digital LAB</a></li>
+            <li><a data-page="simulations" class="nav-link"><i class="fas fa-project-diagram"></i> Circuit Simulations</a></li>
+            <li><a data-page="links" class="nav-link"><i class="fas fa-link"></i> Important Links</a></li>
+            <li><a data-page="stuff" class="nav-link"><i class="fas fa-book"></i> Useful Stuff</a></li>
+            <li><a data-page="loan" class="nav-link"><i class="fas fa-tools"></i> Instrument Loan</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <section id="home" class="page active">
+            <header class="main-header">
+                <h1>Electronics Lab</h1>
+                <div class="visitor-counter">Visitor No.: <span class="visitor-count"></span></div>
+            </header>
+            <p style="text-align: center; color: var(--text-secondary); font-size: 1.1rem; margin-top: -2rem; margin-bottom: 2rem;">Innovating the Future, One Circuit at a Time</p>
+            <div class="lab-cards">
+
+                 <div class="card">
+                    <img src="https://raw.githubusercontent.com/electronicslab402/electronicslab402/blob/main/digital lab.jpeg" alt="Digital circuits">
+                    <div class="card-content">
+                        <h2>DIGITAL LAB</h2>
+                        <p>Explore the world of logic gates, processors, and digital systems</p>
+                        <a href="#" class="btn nav-link" data-page="digital-lab">Enter Lab <i class="fas fa-arrow-right"></i></a>
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+                    <img src="https://raw.githubusercontent.com/electronicslab402/electronicslab402/blob/main/analog lab.jpeg">
+                      <div class="card-content">
+                        <h2>ANALOG LAB</h2>
+                        <p>Amplifiers, Mirrors, and the fundamentals of continuous signals</p>
+                        <a href="#" class="btn nav-link" data-page="analog-lab">Enter Lab <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="analog-lab" class="page">
+            <header class="main-header">
+                <h1>Analog LAB</h1>
+                <div class="visitor-counter">Visitor No.: <span class="visitor-count"></span></div>
+            </header>
+            <div class="content-section">
+                <h3>Analog Lab Experiment List</h3>
+                <p>Read <strong>Instruction</strong> before the start the Lab Experiments</p>
+                <ul>
+                    <li><a href="#">Experiment 1: Device characterization</a></li>
+                    <li><a href="#">Experiment 1: Troubleshooting</a></li>
+                    <li><a href="#">Experiment 2: Single Device Amplifier</a></li>
+                    <li><a href="#">Experiment 3: Current mirrors</a></li>
+                    <li><a href="#">Experiment 4: Differential Pair</a></li>
+                    <li><a href="#">Experiment 5: Op-Amp Design</a></li>
+                    <li><a href="#">Experiment 6: Power Amplifiers</a></li>
+                </ul>
+            </div>
+            <div class="content-section">
+                <h3>Useful Documents</h3>
+                <ul>
+                    <li><a href="#">Keysight DSO 1202 Manual</a></li>
+                    <li><a href="#">Keysight Function generator User manual</a></li>
+                    <li><a href="#">Keysight Power Supply Manual</a></li>
+                    <li><a href="#">Datasheet of the CD4007</a></li>
+                    <li><a href="#">Probes V/s Cable for CRO</a></li>
+                    <li><a href="#">Using the CD4007 IC</a></li>
+                    <li><a href="#">Tektronics DSO manual 1000B</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="digital-lab" class="page">
+            <header class="main-header">
+                <h1>Digital LAB</h1>
+                <div class="visitor-counter">Visitor No.: <span class="visitor-count"></span></div>
+            </header>
+            <div class="digital-lab-layout">
+                <div style="flex-grow:1;">
+                    <div class="content-section">
+                        <h3>List of Experiment</h3>
+                        <ul>
+                            <li><a href="#">Experiment 1: combinational circuit</a></li>
+                            <li><a href="#">Experiment 2: Adder circuit</a></li>
+                            <li><a href="#">Experiment 3: Multiplexure</a></li>
+                            <li><a href="#">Experiment 4: Seven segment Display driver</a></li>
+                            <li><a href="#">Experiment 5: Latches and flip-flops</a></li>
+                            <li><a href="#">Experiment 6: Counters (Synchro. & Asynchro.)</a></li>
+                            <li><a href="#">Experiment 7: Sequence Generator</a></li>
+                            <li><a href="#">Experiment 8: Sequence Detector</a></li>
+                        </ul>
+                    </div>
+                    <div class="content-section">
+                        <h3>Useful Documents / Manuals</h3>
+                        <ul>
+                            <li><a href="#">DE0 User Manual (Rev. DKV.x)</a></li>
+                            <li><a href="#">DE0 User Manual (Rev.E)</a></li>
+                            <li><a href="#">Nios II Tutorial</a></li>
+                            <li><a href="#">VHDL and VERILOG</a></li>
+                            <li><a href="#">Programmable Logic Devices (PLD)</a></li>
+                            <li><a href="#">Lab for First FPGA Tutorial</a></li>
+                            <li><a href="#">Verilog tutorial</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="digital-lab-media">
+                     <div class="content-section">
+                        <img src="https://i.ytimg.com/vi/b6q4nU3j61Y/maxresdefault.jpg" alt="Instrumentation">
+                        <img src="https://www.qr-code-generator.com/wp-content/themes/qr/new_structure/markets/core_market_full/generator/static/generator_example_type_text.png" alt="QR Code">
+                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="simulations" class="page">
+             <header class="main-header">
+                <h1>Circuit Simulations</h1>
+                <div class="visitor-counter">Visitor No.: <span class="visitor-count"></span></div>
+            </header>
+             <div class="content-section">
+                <h3>ELL100</h3>
+                <ul>
+                    <li><a href="#">RLC circuit step Response in UN-damped condition (ζ=0)</a></li>
+                    <li><a href="#">RLC circuit step Response in Under-damped condition (0<ζ<1)</a></li>
+                    <li><a href="#">RLC circuit step Response in critically-damped condition (ζ=1)</a></li>
+                    <li><a href="#">RLC circuit step Response in over-damped condition (ζ>1)</a></li>
+                </ul>
+             </div>
+             <div class="content-section">
+                <h3>ELL304</h3>
+                <ul>
+                    <li><a href="#">CMOS inverter</a></li>
+                    <li><a href="#">MosFET Common Source Amplifier with degeneration</a></li>
+                    <li><a href="#">MosFET common Gate Amplifier</a></li>
+                    <li><a href="#">MOSFET Source follower / common Drain amplifier amplifier</a></li>
+                    <li><a href="#">Simple Current mirror</a></li>
+                    <li><a href="#">common source amplifier (NMOS ) & biased using PMOS current mirror</a></li>
+                    <li><a href="#">common source amplifier (PMOS ) & biased using NMOS current mirror</a></li>
+                    <li><a href="#">Class B Push pull amplifier</a></li>
+                </ul>
+             </div>
+        </section>
+
+        <section id="links" class="page">
+             <header class="main-header">
+                <h1>Important Links</h1>
+                <div class="visitor-counter">Visitor No.: <span class="visitor-count"></span></div>
+            </header>
+            <div class="links-grid">
+                <div class="content-section">
+                    <h3>IIT Delhi Links</h3>
+                    <ul>
+                        <li><a href="#">Old Webmail IITD</a></li>
+                        <li><a href="#">Webmail roundcube</a></li>
+                        <li><a href="#">E-acadmics</a></li>
+                        <li><a href="#">Time Table IIT</a></li>
+                        <li><a href="#">IIT Hospital</a></li>
+                        <li><a href="#">IITD Internal web</a></li>
+                    </ul>
+                </div>
+                <div class="content-section">
+                    <h3>EE Department Link</h3>
+                    <ul>
+                        <li><a href="#">Biophotonics Lab</a></li>
+                        <li><a href="#">EE webpage</a></li>
+                        <li><a href="#">No-Dues Portal EE</a></li>
+                        <li><a href="#">ICS Group</a></li>
+                        <li><a href="#">DMCELL</a></li>
+                        <li><a href="#">Salary Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="content-section">
+                    <h3>Study Links</h3>
+                    <ul>
+                        <li><a href="#">CDMA-nptel</a></li>
+                        <li><a href="#">CDMA</a></li>
+                        <li><a href="#">Free Govt Jobs Alerts</a></li>
+                        <li><a href="#">useful link CDMA</a></li>
+                        <li><a href="#">ChatGPT</a></li>
+                        <li><a href="#">DeepL(best)</a></li>
+                    </ul>
+                </div>
+                <div class="content-section">
+                    <h3>Investment & Travel</h3>
+                    <ul>
+                        <li><a href="#">Groww</a></li>
+                        <li><a href="#">Zerodha</a></li>
+                        <li><a href="#">Coin Switch</a></li>
+                        <li><a href="#">TradingView</a></li>
+                        <li><a href="#">Train Ticket</a></li>
+                        <li><a href="#">Flight Booking</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section id="stuff" class="page">
+            <header class="main-header">
+                <h1>Useful Stuff</h1>
+                <div class="visitor-counter">Visitor No.: <span class="visitor-count"></span></div>
+            </header>
+            <div class="content-section">
+                <h3>How setup IITD Proxy in PC</h3>
+                <p>Set your default web browser automatic proxy configuration to http://proxy.iitd.ac.in/proxy.pac. If you login to IITD network with your Kerberos login and password, you should be able to browse the web immediately. Ensure you purchase a firewall from the computer center to protect your PC from unauthorized access. For proxy settings in specific browsers, follow the instructions below.</p>
+                <h3>Mozilla Firefox</h3>
+                <p>Edit -> Preferences -> Advanced -> Network -> Settings -> Automatic proxy configuration URL</p>
+                <h3>Internet Explorer</h3>
+                <p>Tools -> Internet Options -> Connections -> LAN settings -> Use automatic configuration script</p>
+                <h3>Google Chrome</h3>
+                <p>Settings -> System -> Open your computer's proxy settings. Configure it as specified for your operating system.</p>
+            </div>
+        </section>
+        
+        <section id="loan" class="page">
+            <header class="main-header">
+                <h1>Instrument Loan</h1>
+                <div class="visitor-counter">Visitor No.: <span class="visitor-count"></span></div>
+            </header>
+            <div class="content-section">
+                <h3>Request Form</h3>
+                <p>This page is under construction. The instrument loan request form will be available here soon.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pages = document.querySelectorAll('.page');
+            const visitorSpans = document.querySelectorAll('.visitor-count');
+
+            // --- Page Navigation Logic ---
+            function showPage(pageId) {
+                // Hide all pages
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                });
+                // Show the target page
+                const targetPage = document.getElementById(pageId);
+                if (targetPage) {
+                    targetPage.classList.add('active');
+                }
+                
+                // Update active state in sidebar
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.dataset.page === pageId) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const pageId = this.dataset.page;
+                    showPage(pageId);
+                });
+            });
+
+            // --- Visitor Counter Logic ---
+            function updateVisitorCount() {
+                let count = sessionStorage.getItem('visitorCount');
+                if (count === null) {
+                    // Generate a random starting number for demonstration
+                    count = Math.floor(2000 + Math.random() * 8000);
+                } else {
+                    count = parseInt(count) + 1;
+                }
+                sessionStorage.setItem('visitorCount', count);
+                
+                visitorSpans.forEach(span => {
+                    span.textContent = count;
+                });
+            }
+
+            // --- Initial Setup ---
+            showPage('home'); // Show home page by default
+            updateVisitorCount();
+        });
+    </script>
+</body>
+</html>
