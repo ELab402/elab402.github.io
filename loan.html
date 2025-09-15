@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electronics Lab - Instrument Loan</title>
+    <title>Electronics Lab - Home</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,11 +13,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <nav class="sidebar">
-        <div class="sidebar-header">
-            <a href="index.html" style="text-decoration:none;"><h2 class="logo-text">E-LAB <span class="logo-accent">@402</span></h2></a>
-        </div>
+    <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+                <button class="close-btn" id="close-btn" aria-label="Close Navigation">&times;</button>
+        <a href="index.html" style="text-decoration:none;"><h2 class="logo-text">E-LAB <span class="logo-accent">@402</span></h2></a>
+    </div>
+       
         <ul class="nav-links">
             <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
             <li><a href="analog-lab.html"><i class="fas fa-wave-square"></i> Analog LAB</a></li>
@@ -30,16 +31,30 @@
     </nav>
 
     <main class="main-content">
+         <button class="menu-toggle" id="menu-toggle" aria-label="Open Navigation">
+        <i class="fas fa-bars"></i>
+         </button>
         <header class="main-header">
-            <h1>Instrument Loan</h1>
+            <h1>Electronics Lab</h1>
             <div class="visitor-counter">Visitor No.: <span class="visitor-count"></span></div>
         </header>
-        <div class="content-section">
-            <h3>Request Form</h3>
-            <p>This page is under construction. The instrument loan request form will be available here soon.</p>
+        <p style="text-align: center; color: var(--text-secondary); font-size: 1.1rem; margin-top: -2rem; margin-bottom: 2rem;">Innovating the Future, One Circuit at a Time</p>
+        <div class="lab-cards">
+             <div class="card">
+                <img src="Instrumentloan.jpg" alt="instrument Loan">
+                <div class="card-content">
+                    <h2>instrument Loan</h2>
+                    <p>Explore the world of logic gates, processors, and digital systems.</p>
+                    <a href="digital-lab.html" class="btn">Enter Lab <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="biometric.jpg" alt="bimetric">
+                <div class="card-content">
+                    <h2>Bio Metric Form</h2>
+                    <p>Master amplifiers, filters, and the fundamentals of continuous signals.</p>
+                    <a href="analog-lab.html" class="btn">Enter Lab <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
         </div>
     </main>
-
-    <script src="script.js"></script>
-</body>
-</html>
