@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electronics Lab - Home</title>
+    <title>Electronics Lab - Digital Lab</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,12 +13,13 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-                <button class="close-btn" id="close-btn" aria-label="Close Navigation">&times;</button>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">
+             <button class="close-btn" id="close-btn" aria-label="Close Navigation">&times;</button>
         <a href="index.html" style="text-decoration:none;"><h2 class="logo-text">E-LAB <span class="logo-accent">@402</span></h2></a>
-    </div>
-       
+
+        </div>
         <ul class="nav-links">
             <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
             <li><a href="analog-lab.html"><i class="fas fa-wave-square"></i> Analog LAB</a></li>
@@ -31,30 +32,51 @@
     </nav>
 
     <main class="main-content">
-         <button class="menu-toggle" id="menu-toggle" aria-label="Open Navigation">
+        <button class="menu-toggle" id="menu-toggle" aria-label="Open Navigation">
         <i class="fas fa-bars"></i>
          </button>
+
         <header class="main-header">
-            <h1>Important forms</h1>
+            <h1>Digital LAB</h1>
             <div class="visitor-counter">Visitor No.: <span class="visitor-count"></span></div>
         </header>
-        <p style="text-align: center; color: var(--text-secondary); font-size: 1.1rem; margin-top: -2rem; margin-bottom: 2rem;">Innovating the Future, One Circuit at a Time</p>
-       
-            <div class="digital-lab-media">
-                 <div class="content-section">
-                    <img src="ARTIX 7.jpg" alt="Instrumentation">
-                    <img src="#"  alt="XILINX ARTIX 7 FPGA">
-                 </div>
-                   <div class="content-section">
-                    <img src="MAX 2.jpg" alt="Instrumentation">
-                    <img src="#"  alt="XILINX ARTIX 7 FPGA">
-                 </div>
-           
+        <div class="digital-lab-layout">
+            <div style="flex-grow:1;">
+                <div class="content-section">
+                    <h3>List of Experiment</h3>
+                    <ul>
+                        <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSeo-z39tBhx8fx-ymah_QcmDjYVKBYS2JP1Qq1oyGc7G9fYxA/viewform">Bio-metric Lock Access  </a></li>
+                        <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSeLWT68oi2X9Z0q8R2suVeSYKkOwPNCPqt0IzydFPTXAVkvwQ/viewform">Instrument Loan Form</a></li>
+                        
+                    </ul>
+                </div>
+                <div class="content-section">
+                    <h3>Useful Documents / Manuals</h3>
+                    <ul>
+                        <li><#">ZZZZZZZZZZZ </a></li>
+                        <li><a href="#">SSSSSSSSSSSSSSS </a></li>
+                                                
+                    </ul>
+                </div>
             </div>
-       </div>
+            <div class="digital-lab-media">
+                                 
+                 <div class="content-section">
+                    <img src="biometric.jpg">
+                    <img src="#" Bio-metric Lock Access">
+                 </div>
+                 <div class="content-section">
+                    <img src="instrumentloan.jpg" alt="Instrumentation">
+                    <img src="#" alt="Instrument Loan Form">
+                 </div>
+            </div>
+        </div>
     </main>
 
+    <script src="script.js"></script>
+</body>
 
+</html>
 
 
 
