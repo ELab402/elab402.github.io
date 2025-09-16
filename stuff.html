@@ -36,16 +36,51 @@
         </header>
         <div class="content-section">
             <h3>How setup IITD Proxy in PC</h3>
-            <p>Set your default web browser automatic proxy configuration to http://proxy.iitd.ac.in/proxy.pac. If you login to IITD network with your Kerberos login and password, you should be able to browse the web immediately. Ensure you purchase a firewall from the computer center to protect your PC from unauthorized access. For proxy settings in specific browsers, follow the instructions below.</p>
-            <h3>Mozilla Firefox</h3>
-            <p>Edit -> Preferences -> Advanced -> Network -> Settings -> Automatic proxy configuration URL</p>
-            <h3>Internet Explorer</h3>
-            <p>Tools -> Internet Options -> Connections -> LAN settings -> Use automatic configuration script</p>
-            <h3>Google Chrome</h3>
-            <p>Settings -> System -> Open your computer's proxy settings. Configure it as specified for your operating system.</p>
+            <p>Set your web browser option 'automatic proxy configuration URL/script'  to http://www.cc.iitd.ac.in/cgi-bin/proxy.category where 'category' should be one of the following: btech, diit, dual, faculty,  integrated, irdstaff, mba, mdes, msc, msr, mtech, pgdip, phd, retfaculty, staff, visitor (for temporary accounts),   student (for visiting students) and guest (for short-term visitors). For example, if your account category is btech, then your proxy configuration URL should be http://www.cc.iitd.ac.in/cgi-bin/proxy.btech. You can find out your category from your LDAP profile.
+Note: For Bulk Data Download for Research one can subscribe for Research proxy (They can request from https://ldap1.iitd.ac.in/usermanage/services.php.) . For this the category will be research.If one requires some other port to be opened for data collection then he can request for download server.
+
+    Mozilla (Linux):  Edit -> Preferences -> Advanced -> Network -> Settings -> Automatic proxy configuration URL
+
+    Mozilla (Windows): Tools -> Options -> Advanced -> Network -> Settings -> Automatic proxy configuration URL
+
+    IE: Tools -> Internet options -> Connections -> LAN settings -> Use automatic configuration script
+
+    Safari/Mac: System preferences -> Network -> Advanced -> Proxies -> Configure proxies -> Using a PAC file
+
+Download and install the New IITD CA certificate from the CSC website in to your browser. This step is crucial for preventing hackers from obtaining you password. Please see the section on certificates for details. Since login authentication is being done over HTTPS (Secure HTTP)  from your machine to the proxy server, and 'Ldap/Kerberos' at the back-end, your credentials will never flow in clear text on the network. In order to prevent hackers from snooping the network (Man-In-The-Middle-Attack), it is essential that you never accept (for the current session and/or on a permanent basis) any certificate presented to you possibly by a fake proxy server (Man-In-The-Middle-Attack). Beware that Man-In-The-Middle attacks are fairly common in IITD. If you have installed our New IITD CA certificate, this offer will never be presented to you during login authentication, and your web browser will be able to verify the authenticity of the proxy server.
+
+Intranet web browsing is free, and is not accounted for.
+
+You will be asked for your credentials the first time you open any internet website. Please authenticate yourself with your 'Ldap/Kerberos' username and password.
+
+If your login is successful, you can surf the Internet as long as this window/tab is open - you can browse from another tab or window.  Your internet usage will be added to your account. You can also check your assigned  proxy quota and  usage from this page.
+
+Login failures may be due to: invalid username/password combination,   wrong proxy set up in your browser, usage in excess of quota,  etc.
+
+Closing the session: If you close 'Successful login window/tab' or close your browser, or you logout, you will have to login again to surf the Internet. We recommend you logout properly, instead of closing the 'Successful login window/tab' or closing the browser, so that any additional Internet surfing does not get accounted to your account. Test this by opening any Internet website, and see that you are asked for your credentials.
+
+For any non-browser application e.g. Skype, GoogleTalk, wget etc. you will have to set the proxy as per the application requirements. You can get the proxy server name, IP and port from the successful login screen. Note that you will have to keep the successful login screen open.
+
+Only one person can access the internet from a single IP address. Please make sure that no other user is logged on to the machine from which you are browsing, otherwise your quota may be used by others.
+
+Browsing from multi-user public machines and servers is prohibited.
+
+Please send an email to sysadm@cc.iitd.ac.in to report any problems.</p>
+            
+            <h3>Steps to share a folder on other devices (Mobile,Tab, PC) using Python HTTP server</h3>
+            <p>1.Go to the folder you want to share, click in the address bar, and type cmd to open Command Prompt in that folder.
+
+2.Find your IPv4 address from Wi-Fi settings or by running ipconfig in CMD. For example, 192.168.0.185.
+
+3.In the CMD window, type: python -m http.server 8000 --bind 0.0.0.0
+
+4.Make sure Python is installed on your PC before running the command 
+
+5.On another device connected to the same Wi-Fi, open a browser and type: http://192.168.0.185:8000</p>
         </div>
     </main>
 
     <script src="script.js"></script>
 </body>
+
 </html>
