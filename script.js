@@ -17,16 +17,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- Visitor Counter Logic ---
+    // --- CORRECTED Visitor Counter Logic ---
     function updateVisitorCount() {
-        let count = sessionStorage.getItem('visitorCount');
+        // Use localStorage to save the count permanently in the browser
+        let count = localStorage.getItem('visitorCount');
+
         if (count === null) {
-            count = Math.floor(2000 + Math.random() * 8000);
+            // If no count is found, start at a random base number (e.g., between 5000-6000)
+            // This only happens ONCE for the very first visit.
+            count = Math.floor(5000 + Math.random() * 1000);
         } else {
+            // If a count is found, convert it to a number and increment it by 1
             count = parseInt(count) + 1;
         }
-        sessionStorage.setItem('visitorCount', count);
+
+        // Save the new, updated count back to localStorage
+        localStorage.setItem('visitorCount', count);
         
+        // Display the new count on the page
         visitorSpans.forEach(span => {
             span.textContent = count;
         });
