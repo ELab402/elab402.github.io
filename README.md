@@ -1,2 +1,2 @@
 # elab402
-website for Electronics lab IIT Delhi
+UG Electronics lab , Department of Electrical Engg ,IIT Delhi
